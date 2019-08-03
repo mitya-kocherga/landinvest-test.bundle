@@ -1,0 +1,13 @@
+.loan {
+    border: 2px black solid;
+    background: #fff;
+    padding: 15px;
+    margin: 15px;
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+.loan-btn {
+    border: 1px black solid;
+    background: #ffea00;
+    
+}
