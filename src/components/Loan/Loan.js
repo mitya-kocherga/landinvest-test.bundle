@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const Loan = ({title, onClickButton, isInvested }) => {
     return (
@@ -17,7 +17,7 @@ const Loan = ({title, onClickButton, isInvested }) => {
                 <button className="loan-btn" onClick={onClickButton}>Invest</button>
             </div>
         </div>
-    )
+    );
 };
 
 export default Loan;

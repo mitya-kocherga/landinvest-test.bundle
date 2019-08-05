@@ -1,4 +1,4 @@
 import Loading from './Loading';
-import './styles.css'
+import './styles.css';
 
 export default Loading;

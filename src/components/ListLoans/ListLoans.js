@@ -7,35 +7,38 @@ import { toString, toNumber } from '../../helpers';
 const currentLoans = require('./current-loans.json');
 
 const ListLoans = ({onInvest}) => {
-    const [isLoading, setLoading]  = useState(false);
-    const [loans, setLoans]        = useState([]);
+    const [isLoading, setLoading]         = useState(false);
+    const [loans, setLoans]               = useState([]);
     const [modalOptions, setModalOptions] = useState({isShow: false, options: []});
 
-    const getCurrentLoanById = () => loans.findIndex(l => l.id === modalOptions.options.id)
+    const getCurrentLoanById = () => loans.findIndex(l => l.id === modalOptions.options.id);
 
-    const handleInvest = (value) => {
+    const handleModalClose = () => setModalOptions({isShow: false});
+
+    const handleModalOpen = (loan) => () => setModalOptions({isShow: true, options: loan});
+
+    const handleInvest = value => {
         onInvest(value);
         const newLoans      = loans;
         const currentLoan   = newLoans[getCurrentLoanById()];
-        const currentAmount = toNumber(currentLoan.amount)
+        const currentAmount = toNumber(currentLoan.amount);
         
         newLoans[getCurrentLoanById()] = {
             ...currentLoan,
             amount: toString(currentAmount - toNumber(value)),
             isInvested: true,
         }
-        setLoans(newLoans)
-
-    }
+        setLoans(newLoans);
+    };
     
     useEffect(() => {
-        setLoading(true)
+        setLoading(true);
         setTimeout( 
             () => {
-                setLoans(currentLoans.loans)
-                setLoading(false)
+                setLoans(currentLoans.loans);
+                setLoading(false);
             }
-            ,10
+            ,2000
         );
     }, [loans]);
 
@@ -51,7 +54,7 @@ const ListLoans = ({onInvest}) => {
                                 title={loan.title}
                                 key={loan.id}
                                 isInvested={loan.isInvested}
-                                onClickButton={() => setModalOptions({isShow: true, options: loan})}
+                                onClickButton={handleModalOpen(loan)}
                             />
                         )
                 }
@@ -59,7 +62,7 @@ const ListLoans = ({onInvest}) => {
             {   
                 modalOptions.isShow ?
                     <InvestModal 
-                        closeModal={() => setModalOptions({isShow: false})}
+                        closeModal={handleModalClose}
                         options={modalOptions.options}
                         onInvest={handleInvest}
                     />

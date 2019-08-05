@@ -1,5 +1,4 @@
 import ListLoans from './ListLoans';
-import './styles.css'
-
+import './styles.css';
 
 export default ListLoans;

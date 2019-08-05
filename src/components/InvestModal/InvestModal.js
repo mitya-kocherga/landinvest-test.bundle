@@ -1,37 +1,36 @@
 import React, { useState } from 'react';
-import { toNumber } from '../../helpers'
+import { toNumber } from '../../helpers';
 
-
-                                
 const InvestModal = ({closeModal, options, onInvest}) => {
-    const [error, setError] = useState('')
-    const [investAmount, setInvestAmount] = useState(0)
+    const [error, setError] = useState('');
+    const [investAmount, setInvestAmount] = useState(0);
 
     const validateInvest = () => {
-        const available = toNumber(options.amount)
-        if (investAmount > available){
-            setError('please chose amount less then allowed')
-            return false
+        const available = toNumber(options.amount);
+        if (investAmount > available) {
+            setError('please chose amount less then allowed');
+            return false;
         } else {
-            return true
-        }
-    }
+            return true;
+        };
+    };
 
     const handleClick = () => {
         if (validateInvest()) {
-            onInvest(investAmount)
-            closeModal()
-        }
-    }
+            onInvest(investAmount);
+            closeModal();
+        };
+    };
     
     const getEndDate = () => {
         const date    = new Date(options.term_remaining * 1000),
               hours   = date.getHours(),
-              minutes = date.getMinutes(); 
-        return `${hours} h ${minutes} m `
+              minutes = date.getMinutes();
+        return `${hours} h ${minutes} m `;
     };
     const handleClose = (e) => e.target.className === 'shadow' ? closeModal() : null;
 
+    const handleChangeInvestAmpunt = e => setInvestAmount(e.target.value);
 
     return (
         <div className="shadow" onClick={handleClose}>
@@ -46,13 +45,13 @@ const InvestModal = ({closeModal, options, onInvest}) => {
                 </div>
                 <div className="modal-actions">
                     <p>Invested amount ($)</p>
-                    <input type="number" placeholder="write amount.." onChange={(e) => setInvestAmount(e.target.value)}/>
+                    <input type="number" placeholder="write amount.." onChange={handleChangeInvestAmpunt}/>
                     <button className="loan-btn" onClick={handleClick}>Invest</button>
                 </div>
                 <div className="modal-error">{error}</div>
             </div>
         </div>
     );
-}
+};
 
 export default InvestModal;

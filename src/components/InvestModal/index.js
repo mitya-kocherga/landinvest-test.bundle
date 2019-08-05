@@ -1,5 +1,4 @@
 import InvestModal from './InvestModal';
-import './styles.css'
-
+import './styles.css';
 
 export default InvestModal;
